@@ -11,7 +11,8 @@ import configureStore from './store/configureStore';
 // import startPushNotifications from './pushNotifications';
 
 // uncomment if you prefer client-side only css
-// import '../style/main.scss';
+import '../style/normalize.scss';
+import '../style/main.scss';
 
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);

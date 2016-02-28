@@ -11,11 +11,12 @@ import thunk from 'redux-thunk';
 import reducers from '../src/reducers';
 import routes from './routes';
 
-import css from '../style/main.scss';
-//  const css = '';
+//  import css from '../style/main.scss';
+const css = '';
 
 import mongoose from 'mongoose';
 import dbConnection from './db_connection';
+
 mongoose.connect(dbConnection);
 
 export const handleRender = (req, res) => {
@@ -34,11 +35,13 @@ export const handleRender = (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      const html = ReactDOMServer.renderToString(
+      let html = ReactDOMServer.renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps} />
         </Provider>
       );
+
+      html = '';
 
       res.render('index',
         { styles: css, html, initialState: JSON.stringify(store.getState()) });

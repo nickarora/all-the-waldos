@@ -1,5 +1,5 @@
 $font-stack:              'helvetica neue', sans-serif;
-$background-color:        #000;
+$background-color:        #FFF;
 
 html {
   font-family: $font-stack;
@@ -8,6 +8,8 @@ html {
   background: $background-color;
 }
 
-h1 {
-  color: #FFF;
+.waldo-map {
+  width: 100vw;
+  height: 100vh;
+  background-color: #2f6fad;
 }
