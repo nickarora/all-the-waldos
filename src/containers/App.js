@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <WaldoMap mapName="ww1.png" />
+        <WaldoMap mapName="ww1" />
       </div>
     );
   }
