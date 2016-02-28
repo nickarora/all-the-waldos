@@ -1,0 +1,14 @@
+{
+  "mongo": {
+    "host": "localhost",
+    "dev": "waldo-dev",
+    "prod": "waldo-prod",
+    "test": "waldo-test"
+  },
+  "express": {
+    "host": "localhost",
+    "prodHost": "all-the-waldos.herokuapp.com",
+    "appPort": 3000,
+    "devServerPort": 8080
+  }
+}
