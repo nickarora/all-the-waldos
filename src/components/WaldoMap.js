@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { dzi } from '../../config/default.json';
 
 class WaldoMap extends Component {
   componentDidMount = () => { this.loadMap(); };
@@ -9,14 +10,14 @@ class WaldoMap extends Component {
 
     const currentWaldoMap = {
       Image: {
-        xmlns: 'http://schemas.microsoft.com/deepzoom/2008',
+        xmlns: dzi.xmlns,
+        Format: dzi.Format,
+        Overlap: dzi.Overlap,
+        TileSize: dzi.TileSize,
         Url: `${this.props.mapName}_files/`,
-        Format: 'png',
-        Overlap: '0',
-        TileSize: '256',
         Size: {
-          Width: '11200',
-          Height: '7040'
+          Width: this.props.mapWidth,
+          Height: this.props.mapHeight
         }
       }
     };
@@ -36,7 +37,9 @@ class WaldoMap extends Component {
 }
 
 WaldoMap.propTypes = {
-  mapName: PropTypes.string.isRequired
+  mapName: PropTypes.string.isRequired,
+  mapWidth: PropTypes.string.isRequired,
+  mapHeight: PropTypes.string.isRequired
 };
 
 export default WaldoMap;

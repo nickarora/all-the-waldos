@@ -19,34 +19,39 @@ import dbConnection from './db_connection';
 
 mongoose.connect(dbConnection);
 
+import * as waldoService from './api/service/waldoService';
+
 export const handleRender = (req, res) => {
-  const initialState = {};
-  const history = createMemoryHistory(req.path);
-  const simpleRouter = syncHistory(history);
-  const finalCreateStore = applyMiddleware(thunk, simpleRouter)(createStore);
+  waldoService.getDefaultMap((err, mapResponse) => {
+    if (err) throw err;
 
-  const store = finalCreateStore(reducers, initialState);
+    const initialState = { currentMap: mapResponse };
+    const history = createMemoryHistory(req.path);
+    const simpleRouter = syncHistory(history);
+    const finalCreateStore = applyMiddleware(thunk, simpleRouter)(createStore);
 
-  simpleRouter.listenForReplays(store);
+    const store = finalCreateStore(reducers, initialState);
 
-  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
-    if (error) {
-      res.status(500).send(error.message);
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      let html = ReactDOMServer.renderToString(
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>
-      );
+    simpleRouter.listenForReplays(store);
 
-      html = '';
+    match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+      if (error) {
+        res.status(500).send(error.message);
+      } else if (redirectLocation) {
+        res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+      } else if (renderProps) {
+        let html = ReactDOMServer.renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>
+        );
 
-      res.render('index',
-        { styles: css, html, initialState: JSON.stringify(store.getState()) });
-    } else {
-      res.status(404).render('error');
-    }
+        html = '';
+        res.render('index',
+          { styles: css, html, initialState: JSON.stringify(store.getState()) });
+      } else {
+        res.status(404).render('error');
+      }
+    });
   });
 };

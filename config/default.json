@@ -10,5 +10,11 @@
     "prodHost": "all-the-waldos.herokuapp.com",
     "appPort": 3000,
     "devServerPort": 8080
+  },
+  "dzi": {
+    "xmlns": "http://schemas.microsoft.com/deepzoom/2008",
+    "Format": "png",
+    "Overlap": "0",
+    "TileSize": "256"
   }
 }
