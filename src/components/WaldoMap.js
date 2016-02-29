@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 
-
 class WaldoMap extends Component {
-  componentDidUpdate = () => {
+  componentDidMount = () => { this.loadMap(); };
+  componentDidUpdate = () => { this.loadMap(); };
+
+  loadMap = () => {
     const openseadragon = require('openseadragon');
 
     const currentWaldoMap = {
@@ -30,9 +32,7 @@ class WaldoMap extends Component {
     });
   };
 
-  render = () => (
-    <div id="waldo-map" className="waldo-map" />
-  );
+  render = () => <div id="waldo-map" className="waldo-map"></div>;
 }
 
 WaldoMap.propTypes = {
