@@ -4,3 +4,4 @@ dist
 *.log
 *.gz
 .DS_Store*
+public/images
