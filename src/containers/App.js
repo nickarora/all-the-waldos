@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-//  import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 
 import { connect } from 'react-redux';
 
 import WaldoMap from '../components/WaldoMap';
+import MapNav from '../components/MapNav';
+
+import { navToNextMap } from '../actions/actions';
 
 class App extends Component {
   render = () =>
@@ -13,22 +16,24 @@ class App extends Component {
         mapWidth={this.props.mapWidth}
         mapHeight={this.props.mapHeight}
       />
+      <MapNav onClick={this.props.navToNextMap} />
     </div>;
 }
 
 App.propTypes = {
   mapName: PropTypes.string.isRequired,
   mapWidth: PropTypes.string.isRequired,
-  mapHeight: PropTypes.string.isRequired
+  mapHeight: PropTypes.string.isRequired,
+  navToNextMap: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ currentMap }) => ({
-  mapName: currentMap.mapName,
-  mapWidth: currentMap.mapWidth.toString(),
-  mapHeight: currentMap.mapHeight.toString()
+const mapStateToProps = ({ maps, currentMap }) => ({
+  mapName: maps[currentMap].mapName,
+  mapWidth: maps[currentMap].mapWidth.toString(),
+  mapHeight: maps[currentMap].mapHeight.toString()
 });
 
-//  const mapDispatchToProps = (dispatch) =>
-//  bindActionCreators({ toggleTodo, addTodo, deleteTodo, inputChange }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ navToNextMap }, dispatch);
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -13,6 +13,12 @@ html {
   height: 100vh;
 }
 
+.mapnav {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 // for IE10
 @-ms-viewport{
   width: device-width;

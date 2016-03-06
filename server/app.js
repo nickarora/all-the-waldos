@@ -15,10 +15,14 @@ mongoose.connect(dbConnection);
 import * as waldoService from './api/service/waldoService';
 
 export const handleRender = (req, res) => {
-  waldoService.getDefaultMap((err, mapResponse) => {
+  waldoService.getMaps((err, mapResponse) => {
     if (err) throw err;
 
-    const initialState = { currentMap: mapResponse };
+    const initialState = {
+      maps: mapResponse,
+      currentMap: 0
+    };
+
     const history = createMemoryHistory(req.path);
     const simpleRouter = syncHistory(history);
     const finalCreateStore = applyMiddleware(thunk, simpleRouter)(createStore);
